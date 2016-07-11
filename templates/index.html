@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Game</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for ('static',filename= 'style.css')}}">
+</head>
+
+<body>
+    <h1>Welcome to the Great Number Game!</h1>
+    <h3> I am thinking of a number between 1 and 100
+    <br>
+Take a guess</h3>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+	  		{% for message in messages %}
+
+
+	  		<div id="{{ message }}">	
+	  		  <p>{{message}}</p>
+	  		{% endfor %}
+	  		{% if not session['is_game_in_progress'] %}
+	  			<a class="play-again-button" href="/">Play again?</a>
+	  		{% endif %}
+	  	</div>
+      {% endif %}
+	{% endwith %}
+
+	{% if session['is_game_in_progress'] %}
+		<form action="/" method="post" class="form">
+	        <input type="number" name="user_number" min="1" max="100" required="true">
+	        <input type="submit">
+	    </form>
+	{% endif %}
+</body>
+
+</html>
